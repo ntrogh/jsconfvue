@@ -26,25 +26,25 @@ const KoedosDao = require("./koedosDao");
 async function getStats() {
   try {
 
-  // const koedosDao = new KoedosDao(config.databaseId, config.statsContainerId);
-  const koedosDao = new KoedosDao("config.databaseId", config.statsContainerId);
+    const koedosDao = new KoedosDao(config.databaseId, config.statsContainerId);
 
-  const querySpec = {
-    query: "SELECT * from c"
-  };
+    const querySpec = {
+      query: "SELECT * from c"
+    };
 
-  const items = await koedosDao.find(querySpec);
+    const items = await koedosDao.find(querySpec);
 
-  // items.forEach(item => {
-  //   console.log(`${item.date} - ${item.count}`);
-  // });
-}
-catch (e) {
-  return e;
-}
+    // items.forEach(item => {
+    //   console.log(`${item.date} - ${item.count}`);
+    // });
 
-  // return data.stats;
-  return items;
+    // return data.stats;
+    return items;
+  }
+  catch (e) {
+    return e;
+  }
+
 };
 
 module.exports = { getStats };
