@@ -3,7 +3,8 @@ export default {
   name: 'AuthLogout',
   methods: {
     goAuth() {
-      const { pathname } = window.location;
+      // const { pathname } = window.location;
+      const { pathname } = '/';
       const redirect = `post_logout_redirect_uri=${pathname}`;
       const url = `/.auth/logout?${redirect}`;
       window.location.href = url;
