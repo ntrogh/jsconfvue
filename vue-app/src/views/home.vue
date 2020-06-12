@@ -1,7 +1,7 @@
 <template>
   <div class="content-container">
     <div class="content-title-group">
-      <h2 class="title">Koedos</h2>
+      <h2 class="title">KOEDOES</h2>
       <p>
         Want to praise someone for something? Give them a <b>Koedo</b> to let
         them know you care and appreciate what they're doing!
