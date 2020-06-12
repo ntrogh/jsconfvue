@@ -1,0 +1,9 @@
+export const GET_DISCOUNTS = 'GET_DISCOUNTS';
+export const GET_PRODUCTS = 'GET_PRODUCTS';
+export const ADD_PRODUCT = 'ADD_PRODUCT';
+export const UPDATE_PRODUCT = 'UPDATE_PRODUCT';
+export const DELETE_PRODUCT = 'DELETE_PRODUCT';
+export const GET_KOEDOS = 'GET_KOEDOS';
+export const ADD_KOEDO = 'ADD_KOEDO';
+export const UPDATE_KOEDO = 'UPDATE_KOEDO';
+export const DELETE_KOEDO = 'DELETE_KOEDO';
