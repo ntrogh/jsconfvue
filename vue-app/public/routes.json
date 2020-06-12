@@ -13,15 +13,8 @@
       "allowedRoles": ["authenticated"]
     },
     {
-      "route": "/stats"
-    },
-    {
-      "route": "/products",
-      "statusCode": "404"
-    },
-    {
-      "route": "/api/x/*",
-      "allowedRoles": ["preferred"]
+      "route": "/api/stats",
+      "allowedRoles": ["anonymous"]
     },
     {
       "route": "/api/*",
