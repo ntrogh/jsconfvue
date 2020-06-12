@@ -24,6 +24,7 @@ const KoedosDao = require("./koedosDao");
 // };
 
 async function getStats() {
+  return "test";
   try {
 
     const koedosDao = new KoedosDao(config.databaseId, config.statsContainerId);
