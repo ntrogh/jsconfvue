@@ -1,4 +1,4 @@
-// const config = require("./cosmosdb-config");
+const config = require("./cosmosdb-config");
 const CosmosClient = require("@azure/cosmos").CosmosClient;
 const KoedosDao = require("./koedosDao");
 
@@ -27,20 +27,20 @@ async function getStats() {
   // return "test";
   // try {
 
-  //   const koedosDao = new KoedosDao(config.databaseId, config.statsContainerId);
+  const koedosDao = new KoedosDao(config.databaseId, config.statsContainerId);
 
-  //   const querySpec = {
-  //     query: "SELECT * from c"
-  //   };
+  const querySpec = {
+    query: "SELECT * from c"
+  };
 
-  //   const items = await koedosDao.find(querySpec);
+  const items = await koedosDao.find(querySpec);
 
-  //   // items.forEach(item => {
-  //   //   console.log(`${item.date} - ${item.count}`);
-  //   // });
+  // items.forEach(item => {
+  //   console.log(`${item.date} - ${item.count}`);
+  // });
 
-  return data.stats;
-  //   return items;
+  // return data.stats;
+  return items;
   // }
   // catch (e) {
   //   return `{ "error": "${e}"}`;
