@@ -41,8 +41,8 @@ export default {
       <p class="menu-label">Menu</p>
       <ul class="menu-list">
         <router-link to="/home">Home</router-link>
+        <router-link to="/stats">Koedo Stats</router-link>
         <router-link to="/koedos">My Koedos</router-link>
-        <!-- <router-link to="/discounts">My Discounts</router-link> -->
       </ul>
     </nav>
     <nav class="menu auth">

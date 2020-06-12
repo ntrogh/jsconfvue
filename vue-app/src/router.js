@@ -23,9 +23,9 @@ export default new Router({
       component: () => import(/* webpackChunkName: "koedos" */ './views/koedos/koedos.vue'),
     },
     {
-      path: '/discounts',
-      name: 'discounts',
-      component: () => import(/* webpackChunkName: "discount" */ './views/discounts.vue'),
+      path: '/stats',
+      name: 'stats',
+      component: () => import(/* webpackChunkName: "stat" */ './views/stats.vue'),
     },
     {
       path: '/home',

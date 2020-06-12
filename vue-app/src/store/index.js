@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import discountsModule from './modules/discounts';
+import statsModule from './modules/stats';
 import productsModule from './modules/products';
 import koedosModule from './modules/koedos';
 
@@ -13,7 +13,7 @@ export default new Vuex.Store({
   modules: {
     products: productsModule,
     koedos: koedosModule,
-    discounts: discountsModule,
+    stats: statsModule,
   },
   state: {
   },

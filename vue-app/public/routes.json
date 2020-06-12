@@ -13,8 +13,7 @@
       "allowedRoles": ["authenticated"]
     },
     {
-      "route": "/discounts",
-      "statusCode": "404"
+      "route": "/stats"
     },
     {
       "route": "/products",

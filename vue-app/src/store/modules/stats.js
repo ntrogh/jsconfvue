@@ -1,7 +1,7 @@
 import axios from 'axios';
 import API from '../config';
 import { parseList } from './action-utils';
-import { GET_DISCOUNTS } from './mutation-types';
+import { GET_STATS } from './mutation-types';
 
 const captains = console;
 
@@ -9,21 +9,21 @@ export default {
   strict: process.env.NODE_ENV !== 'production',
   namespaced: true,
   state: {
-    discounts: [],
+    stats: [],
   },
   mutations: {
-    [GET_DISCOUNTS](state, discounts) {
-      state.discounts = discounts;
+    [GET_STATS](state, stats) {
+      state.stats = stats;
     },
   },
   actions: {
     // actions let us get to ({ state, getters, commit, dispatch }) {
-    async getDiscountsAction({ commit }) {
+    async getStatsAction({ commit }) {
       try {
-        const response = await axios.get(`${API}/discounts`);
-        const discounts = parseList(response);
-        commit(GET_DISCOUNTS, discounts);
-        return discounts;
+        const response = await axios.get(`${API}/stats`);
+        const stats = parseList(response);
+        commit(GET_STATS, stats);
+        return stats;
       } catch (error) {
         captains.error(error);
         throw new Error(error);
@@ -31,6 +31,6 @@ export default {
     },
   },
   getters: {
-    discounts: (state) => state.discounts,
+    stats: (state) => state.stats,
   },
 };

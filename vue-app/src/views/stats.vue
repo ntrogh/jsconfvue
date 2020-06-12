@@ -3,7 +3,7 @@ import { mapActions, mapGetters } from 'vuex';
 import ListHeader from '@/components/list-header.vue';
 
 export default {
-  name: 'Discounts',
+  name: 'Stats',
   data() {
     return {
       errorMessage: '',
@@ -13,20 +13,24 @@ export default {
     ListHeader,
   },
   async created() {
-    await this.getDiscounts();
+    await this.getStats();
   },
   computed: {
-    ...mapGetters('discounts', { discounts: 'discounts' }),
+    ...mapGetters('stats', { stats: 'stats' }),
   },
   methods: {
-    ...mapActions('discounts', ['getDiscountsAction']),
-    async getDiscounts() {
+    ...mapActions('stats', ['getStatsAction']),
+    async getStats() {
       this.errorMessage = undefined;
       try {
-        await this.getDiscountsAction();
+        await this.getStatsAction();
       } catch (error) {
         this.errorMessage = 'Unauthorized';
       }
+    },
+    formatTimestamp: (timestamp) => {
+      const date = new Date(timestamp);
+      return date.toDateString();
     },
   },
 };
@@ -34,28 +38,27 @@ export default {
 
 <template>
   <div class="container columns">
-    <div v-if="discounts" class="column is-8">
+    <div v-if="stats" class="column is-8">
       <ListHeader
-        title="My Discounts"
-        @refresh="getDiscounts"
+        title="Koedo Stats"
+        @refresh="getStats"
         :showAdd="false"
       ></ListHeader>
       <div v-if="errorMessage">{{ errorMessage }}</div>
-      <div v-if="!discounts.length && !errorMessage">
+      <div v-if="!stats.length && !errorMessage">
         Loading data ...
       </div>
       <ul class="list">
         <li
           role="presentation"
-          v-for="discount in discounts"
-          :key="discount.id"
+          v-for="stat in stats"
+          :key="stat.id"
         >
           <div class="card">
             <div class="card-content">
-              <div class="content discount-grid">
-                <label>Store:</label><span>{{ discount.store }}</span>
-                <label>Discount:</label><span>{{ discount.percentage }}%</span>
-                <label>Code:</label><span>{{ discount.code }}</span>
+              <div class="content stat-grid">
+                <label>Date:</label><span>{{ formatTimestamp(stat.date) }}</span>
+                <label>Count:</label><span>{{ stat.count }}</span>
               </div>
             </div>
           </div>

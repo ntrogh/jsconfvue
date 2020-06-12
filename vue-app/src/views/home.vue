@@ -17,12 +17,12 @@
             My Koedos
           </a>
         </button>
-        <!-- <button class="button" aria-label="Give a Koedo">
-          <a href="/discounts">
+        <button class="button" aria-label="Koedo Stats">
+          <a href="/stats">
             <i class="fas fa-money-bill-alt"></i>
-            My Discounts
+            Stats
           </a>
-        </button> -->
+        </button>
         <button class="button" aria-label="Code on GitHub">
           <a
             href="https://github.com/ntrogh/shopathome"
