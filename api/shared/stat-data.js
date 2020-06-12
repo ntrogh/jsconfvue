@@ -1,6 +1,6 @@
-// const config = require("./cosmosdb-config");
-// const CosmosClient = require("@azure/cosmos").CosmosClient;
-// const KoedosDao = require("./koedosDao");
+const config = require("./cosmosdb-config");
+const CosmosClient = require("@azure/cosmos").CosmosClient;
+const KoedosDao = require("./koedosDao");
 
 const data = {
   stats: [
