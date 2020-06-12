@@ -15,7 +15,7 @@ export default new Router({
     {
       path: '/products',
       name: 'products',
-      allowedRoles: ["authenticated"],
+      allowedRoles: ['authenticated'],
       component: () => import(/* webpackChunkName: "products" */ './views/products/products.vue'),
     },
     {
