@@ -42,7 +42,7 @@ async function getStats() {
     return items;
   }
   catch (e) {
-    return e;
+    return `{ "error": "${e}"}`;
   }
 
 };
