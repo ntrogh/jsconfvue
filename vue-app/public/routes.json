@@ -9,8 +9,16 @@
       "statusCode": "404"
     },
     {
+      "route": "/koedos",
+      "allowedRoles": ["authenticated"]
+    },
+    {
       "route": "/discounts",
-      "allowedRoles": ["administrator"]
+      "statusCode": "404"
+    },
+    {
+      "route": "/products",
+      "statusCode": "404"
     },
     {
       "route": "/api/x/*",
