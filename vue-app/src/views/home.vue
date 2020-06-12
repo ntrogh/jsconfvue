@@ -11,12 +11,12 @@
       </p>
       <br />
       <div class="button-group">
-        <button class="button" aria-label="My Koedos" tabindex="0">
+        <!-- <button class="button" aria-label="My Koedos" tabindex="0">
           <a href="/koedos">
             <i class="fas fa-clipboard-list"></i>
             My Koedos
           </a>
-        </button>
+        </button> -->
         <button class="button" aria-label="Koedo Stats">
           <a href="/stats">
             <i class="fas fa-money-bill-alt"></i>

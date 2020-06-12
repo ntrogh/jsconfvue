@@ -42,7 +42,9 @@ export default {
       <ul class="menu-list">
         <router-link to="/home">Home</router-link>
         <router-link to="/stats">Koedo Stats</router-link>
-        <router-link to="/koedos">My Koedos</router-link>
+        <div v-if="userInfo">
+          <router-link to="/koedos">My Koedos</router-link>
+        </div>
       </ul>
     </nav>
     <nav class="menu auth">
