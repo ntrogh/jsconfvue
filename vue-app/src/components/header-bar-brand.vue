@@ -12,10 +12,13 @@ export default {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <i class="fab js-logo fa-vuejs fa-2x" aria-hidden="true" />
+      <i aria-hidden="true">
+        <img class="image is-128x128" src="../assets/Koedo-logo.png"/>
+      </i>
     </a>
     <router-link to="/" class="navbar-item nav-home">
-      <span class="brand-first">KOEDOS</span>
+      <img src="../assets/Koedo-title.png" />
+      <!-- <span class="brand-first">KOEDOS</span> -->
       <!-- <span class="brand-second">AT</span>
       <span class="brand-third">HOME</span> -->
     </router-link>

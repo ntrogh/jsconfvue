@@ -12,6 +12,8 @@ $link: $primary; // #00b3e6; // #ff4081;
 $info: $primary;
 $shade-light: #fafafa;
 $light-gray: #777;
+$navbar-height: 5rem;
+$navbar-item-img-max-height: 5rem;
 
 @import '~bulma/bulma.sass';
 
@@ -134,6 +136,7 @@ header {
   .navbar-item.nav-home {
     border: 3px solid transparent;
     border-radius: 0%;
+    height:100px;
     &:hover {
       border-right: 3px solid $primary-light;
       border-left: 3px solid $primary-light;

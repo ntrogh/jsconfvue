@@ -10,7 +10,7 @@ export default {
 <template>
   <header>
     <nav
-      class="navbar has-background-dark is-dark"
+      class="navbar is-white"
       role="navigation"
       aria-label="main navigation"
     >

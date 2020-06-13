@@ -100,7 +100,8 @@ export default {
       @refresh="getKoedos"
       @add="enableAddMode"
       :routePath="routePath"
-    ></ListHeader>
+    >
+    </ListHeader>
     <div class="columns is-multiline is-variable">
       <div class="column is-8" v-if="koedos">
         <KoedoList
