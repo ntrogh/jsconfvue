@@ -41,7 +41,7 @@ async function addKoedo(koedo) {
   koedo.imageurl = getRandomImageUrl();
   koedo.date = new Date();
 
-  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
+  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId, config.koedosPartitionKey);
   const newKoedo = await koedosDao.addItem(koedo);
 
   // data.koedos.push(koedo);
@@ -49,7 +49,7 @@ async function addKoedo(koedo) {
 };
 
 async function updateKoedo(koedo) {
-  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
+  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId, config.koedosPartitionKey);
   console.log(koedo);
   try{
     await koedosDao.updateItem(koedo);
@@ -65,12 +65,13 @@ async function updateKoedo(koedo) {
 };
 
 async function deleteKoedo(id) {
-  console.log("deleteKoedo");
-  const value = parseInt(id, 10);
-  console.log(value);
-
-  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
-  await koedosDao.deleteItem(value)
+  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId, config.koedosPartitionKey);
+  try{
+    await koedosDao.deleteItem(id)
+  }
+  catch(e) {
+    console.log(e);
+  }
   // data.koedos = data.koedos.filter((v) => v.id !== value);
   // console.log(data.koedos.length);
   return true;
@@ -79,7 +80,7 @@ async function deleteKoedo(id) {
 async function getKoedos() {
   console.log("getKoedoes");
   console.log(`${config.databaseId}, ${config.koedosContainerId}`);
-  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
+  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId, config.koedosPartitionKey);
 
   const todayMin20 = new Date();
   todayMin20.setDate(todayMin20.getDate() - 20);
@@ -89,7 +90,6 @@ async function getKoedos() {
   };
   const items = await koedosDao.find(querySpec);
 
-  console.log(items);
   return items;
   // return data.koedos;
 };

@@ -11,11 +11,12 @@ class KoedosDao {
     * @param {string} databaseId
     * @param {string} containerId
      */
-    constructor(databaseId, containerId) {
+    constructor(databaseId, containerId, partitionKey = undefined) {
         const { endpoint, key } = config;
         this.client = new CosmosClient({ endpoint, key });
         this.database = this.client.database(databaseId);
         this.container = this.database.container(containerId);
+        this.partitionKey = partitionKey;
     }
 
     async init() {
@@ -38,24 +39,23 @@ class KoedosDao {
 
     async updateItem(item) {
         debug('Update an item in the database')
-        const doc = await this.getItem(item.id)
 
         const { resource: replaced } = await this.container
-            .item(item.id, partitionKey)
+            .item(item.id, item.from)
             .replace(item)
         return replaced
     }
 
     async deleteItem(itemId) {
-        debug('Deleting an item from the database')
+        console.log(`Deleting an item from the database: ${itemId}`);
         const doc = await this.getItem(itemId)
-        await doc.delete()
+        const { resource: result } = await this.container.item(itemId, doc.from).delete();
     }
 
     async getItem(itemId) {
-        debug('Getting an item from the database')
-        const { resource } = await this.container.item(itemId, partitionKey).read()
-        return resource
+        debug('Getting an item from the database');
+        const docs = await this.find(`SELECT * FROM c WHERE c.id = '${itemId}'`);
+        return docs[0];
     }
 }
 
