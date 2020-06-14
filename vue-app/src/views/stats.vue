@@ -9,7 +9,6 @@ export default {
     return {
       errorMessage: '',
       loaded: false,
-      // stats: {},
     };
   },
   components: {
@@ -17,27 +16,10 @@ export default {
     LineChart,
   },
   async created() {
-    console.log('created');
     await this.getStats();
   },
   async mounted() {
-    console.log('mounted');
-    this.loaded = false;
-    try {
-      const dates = this.stats.map((item) => this.formatTimestamp(item.date));
-      const counts = this.stats.map((item) => item.count);
-      this.chartdata = {
-        labels: dates,
-        datasets: [{
-          label: 'Koedo Count',
-          data: counts,
-        }],
-      };
-      this.options = {};
-      this.loaded = true;
-    } catch (e) {
-      console.error(e);
-    }
+    await this.getStats();
   },
   computed: {
     ...mapGetters('stats', { stats: 'stats' }),
@@ -46,8 +28,20 @@ export default {
     ...mapActions('stats', ['getStatsAction']),
     async getStats() {
       this.errorMessage = undefined;
+      this.options = {};
       try {
         await this.getStatsAction();
+
+        const dates = this.stats.map((item) => this.formatTimestamp(item.date));
+        const counts = this.stats.map((item) => item.count);
+        this.chartdata = {
+          labels: dates,
+          datasets: [{
+            label: 'Koedo Count',
+            data: counts,
+          }],
+        };
+        this.loaded = true;
       } catch (error) {
         this.errorMessage = 'Unauthorized';
         this.errorMessage = error;
@@ -71,25 +65,10 @@ export default {
       <div class="container columns">
         <div v-if="stats" class="column is-half">
           <div class="container">
-            <line-chart v-if="loaded" :chartdata="chartdata" :options="options" />
+            <line-chart v-if="loaded" :chart-data="chartdata" :options="options" />
           </div>
         </div>
       </div>
-
-      <!-- <ul class="list">
-        <li role="presentation" v-for="stat in stats" :key="stat.id">
-          <div class="card">
-            <div class="card-content">
-              <div class="content stat-grid">
-                <label>Date:</label>
-                <span>{{ formatTimestamp(stat.date) }}</span>
-                <label>Count:</label>
-                <span>{{ stat.count }}</span>
-              </div>
-            </div>
-          </div>
-        </li>
-      </ul> -->
     </div>
   </div>
 </template>
