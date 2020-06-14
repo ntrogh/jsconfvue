@@ -1,3 +1,7 @@
+const config = require("./cosmosdb-config");
+const CosmosClient = require("@azure/cosmos").CosmosClient;
+const KoedosDao = require("./koedosDao");
+
 const data = {
   koedos: [
     {
@@ -32,34 +36,62 @@ const getRandomImageUrl = () => {
   return images[idx];
 };
 
-const addKoedo = (koedo) => {
-  koedo.id = getRandomInt();
+async function addKoedo(koedo) {
+  // koedo.id = getRandomInt();
   koedo.imageurl = getRandomImageUrl();
   koedo.date = new Date();
 
-  data.koedos.push(koedo);
-  return koedo;
+  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
+  const newKoedo = await koedosDao.addItem(koedo);
+
+  // data.koedos.push(koedo);
+  return newKoedo;
 };
 
-const updateKoedo = (koedo) => {
-  const index = data.koedos.findIndex((v) => v.id === koedo.id);
+async function updateKoedo(koedo) {
+  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
   console.log(koedo);
-  data.koedos.splice(index, 1, koedo);
+  try{
+    await koedosDao.updateItem(koedo);
+  }
+  catch(e) {
+    console.log(e);
+  }
+
+  // const index = data.koedos.findIndex((v) => v.id === koedo.id);
+  // console.log(koedo);
+  // data.koedos.splice(index, 1, koedo);
   return koedo;
 };
 
-const deleteKoedo = (id) => {
+async function deleteKoedo(id) {
   console.log("deleteKoedo");
   const value = parseInt(id, 10);
   console.log(value);
-  data.koedos = data.koedos.filter((v) => v.id !== value);
-  console.log(data.koedos.length);
+
+  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
+  await koedosDao.deleteItem(value)
+  // data.koedos = data.koedos.filter((v) => v.id !== value);
+  // console.log(data.koedos.length);
   return true;
 };
 
-const getKoedos = () => {
+async function getKoedos() {
   console.log("getKoedoes");
-  return data.koedos;
+  console.log(`${config.databaseId}, ${config.koedosContainerId}`);
+  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
+
+  const todayMin20 = new Date();
+  todayMin20.setDate(todayMin20.getDate() - 20);
+  const querySpec = {
+    query: `SELECT * from c WHERE c.date > "${todayMin20.toISOString()}" ORDER BY c.date ASC`
+    // query: `SELECT * from c`
+  };
+  const items = await koedosDao.find(querySpec);
+
+  console.log(items);
+  return items;
+  // return data.koedos;
 };
 
 module.exports = { addKoedo, updateKoedo: updateKoedo, deleteKoedo: deleteKoedo, getKoedos: getKoedos };

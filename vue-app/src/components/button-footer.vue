@@ -19,7 +19,7 @@ export default {
       default: () => null,
     },
     dataId: {
-      type: Number,
+      type: String,
     },
     iconClasses: {
       type: String,

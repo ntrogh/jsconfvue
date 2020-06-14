@@ -77,12 +77,12 @@ export default {
     },
     save(koedo) {
       let newKoedo;
-      captains.log('koedo changed', koedo);
       if (koedo.id) {
         this.updateKoedoAction(koedo);
       } else {
         newKoedo = koedo;
         newKoedo.date = Date.now();
+        newKoedo.from = 'John Doe';
         this.addKoedoAction(newKoedo);
       }
     },

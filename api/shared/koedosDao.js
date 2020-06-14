@@ -7,7 +7,7 @@ const debug = require('debug')('todo:taskDao')
 const partitionKey = undefined
 class KoedosDao {
     /**
-     * Manages reading, adding, and updating Tasks in Cosmos DB
+     * Manages reading, adding, and updating Koedos in Cosmos DB
     * @param {string} databaseId
     * @param {string} containerId
      */
@@ -32,21 +32,24 @@ class KoedosDao {
 
     async addItem(item) {
         debug('Adding an item to the database')
-        item.date = Date.now()
-        item.completed = false
         const { resource: doc } = await this.container.items.create(item)
         return doc
     }
 
-    async updateItem(itemId) {
+    async updateItem(item) {
         debug('Update an item in the database')
-        const doc = await this.getItem(itemId)
-        doc.completed = true
+        const doc = await this.getItem(item.id)
 
         const { resource: replaced } = await this.container
-            .item(itemId, partitionKey)
-            .replace(doc)
+            .item(item.id, partitionKey)
+            .replace(item)
         return replaced
+    }
+
+    async deleteItem(itemId) {
+        debug('Deleting an item from the database')
+        const doc = await this.getItem(itemId)
+        await doc.delete()
     }
 
     async getItem(itemId) {
