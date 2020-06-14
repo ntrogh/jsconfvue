@@ -7,12 +7,8 @@ const config = {
     databaseId: "koedodb",
     statsContainerId: "stats",
     koedosContainerId: "koedos",
-    statsPartitionKey: {
-        kind: "Hash", paths: ["/date"]
-    },
-    koedosPartitionKey: {
-        kind: "Hash", paths: ["/from"]
-    }
+    statsPartitionKey: "date",
+    koedosPartitionKey: "from",
 };
 
 module.exports = config;

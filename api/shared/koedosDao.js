@@ -3,20 +3,17 @@ const config = require("./cosmosdb-config")
 const CosmosClient = require('@azure/cosmos').CosmosClient
 const debug = require('debug')('todo:taskDao')
 
-// For simplicity we'll set a constant partition key
-const partitionKey = undefined
 class KoedosDao {
     /**
      * Manages reading, adding, and updating Koedos in Cosmos DB
     * @param {string} databaseId
     * @param {string} containerId
      */
-    constructor(databaseId, containerId, partitionKey = undefined) {
+    constructor(databaseId, containerId) {
         const { endpoint, key } = config;
         this.client = new CosmosClient({ endpoint, key });
         this.database = this.client.database(databaseId);
         this.container = this.database.container(containerId);
-        this.partitionKey = partitionKey;
     }
 
     async init() {
@@ -37,19 +34,19 @@ class KoedosDao {
         return doc
     }
 
-    async updateItem(item) {
+    async updateItem(item, partitionKey) {
         debug('Update an item in the database')
 
         const { resource: replaced } = await this.container
-            .item(item.id, item.from)
+            .item(item.id, item[partitionKey])
             .replace(item)
         return replaced
     }
 
-    async deleteItem(itemId) {
+    async deleteItem(itemId, partitionKey) {
         console.log(`Deleting an item from the database: ${itemId}`);
         const doc = await this.getItem(itemId)
-        const { resource: result } = await this.container.item(itemId, doc.from).delete();
+        const { resource: result } = await this.container.item(itemId, doc[partitionKey]).delete();
     }
 
     async getItem(itemId) {

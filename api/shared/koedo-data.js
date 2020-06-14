@@ -41,7 +41,7 @@ async function addKoedo(koedo) {
   koedo.imageurl = getRandomImageUrl();
   koedo.date = new Date();
 
-  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId, config.koedosPartitionKey);
+  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
   const newKoedo = await koedosDao.addItem(koedo);
 
   // data.koedos.push(koedo);
@@ -49,10 +49,10 @@ async function addKoedo(koedo) {
 };
 
 async function updateKoedo(koedo) {
-  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId, config.koedosPartitionKey);
+  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
   console.log(koedo);
   try{
-    await koedosDao.updateItem(koedo);
+    await koedosDao.updateItem(koedo, config.koedosPartitionKey);
   }
   catch(e) {
     console.log(e);
@@ -65,9 +65,9 @@ async function updateKoedo(koedo) {
 };
 
 async function deleteKoedo(id) {
-  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId, config.koedosPartitionKey);
+  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
   try{
-    await koedosDao.deleteItem(id)
+    await koedosDao.deleteItem(id, config.koedosPartitionKey);
   }
   catch(e) {
     console.log(e);
@@ -80,7 +80,7 @@ async function deleteKoedo(id) {
 async function getKoedos() {
   console.log("getKoedoes");
   console.log(`${config.databaseId}, ${config.koedosContainerId}`);
-  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId, config.koedosPartitionKey);
+  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
 
   const todayMin20 = new Date();
   todayMin20.setDate(todayMin20.getDate() - 20);
