@@ -50,13 +50,7 @@ async function addKoedo(koedo) {
 
 async function updateKoedo(koedo) {
   const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
-  console.log(koedo);
-  try{
-    await koedosDao.updateItem(koedo, config.koedosPartitionKey);
-  }
-  catch(e) {
-    console.log(e);
-  }
+  await koedosDao.updateItem(koedo, config.koedosPartitionKey);
 
   // const index = data.koedos.findIndex((v) => v.id === koedo.id);
   // console.log(koedo);
@@ -66,20 +60,14 @@ async function updateKoedo(koedo) {
 
 async function deleteKoedo(id) {
   const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
-  try{
-    await koedosDao.deleteItem(id, config.koedosPartitionKey);
-  }
-  catch(e) {
-    console.log(e);
-  }
+  await koedosDao.deleteItem(id, config.koedosPartitionKey);
+
   // data.koedos = data.koedos.filter((v) => v.id !== value);
   // console.log(data.koedos.length);
   return true;
 };
 
 async function getKoedos() {
-  console.log("getKoedoes");
-  console.log(`${config.databaseId}, ${config.koedosContainerId}`);
   const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
 
   const todayMin20 = new Date();
