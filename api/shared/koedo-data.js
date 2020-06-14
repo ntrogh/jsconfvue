@@ -67,15 +67,16 @@ async function deleteKoedo(id) {
   return true;
 };
 
-async function getKoedos() {
+async function getKoedos(userId) {
   const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
 
   const todayMin20 = new Date();
   todayMin20.setDate(todayMin20.getDate() - 20);
   const querySpec = {
-    query: `SELECT * from c WHERE c.date > "${todayMin20.toISOString()}" ORDER BY c.date ASC`
+    query: `SELECT * from c WHERE c.date > "${todayMin20.toISOString()}" AND c["from"] = "${userId}" ORDER BY c.date ASC`
     // query: `SELECT * from c`
   };
+  console.log(querySpec.query);
   const items = await koedosDao.find(querySpec);
 
   return items;

@@ -1,17 +1,5 @@
+const { getUser } = require('../shared/user-utils');
 const data = require('../shared/koedo-data');
-
-function getUser(req) {
-  console.log('getUser:');
-  const header = req.headers["x-ms-client-principal"];
-  if (header != undefined) {
-    const encoded = Buffer.from(header, "base64");
-    const decoded = encoded.toString("ascii");
-
-    return JSON.parse(decoded);
-  } else {
-    return '{ "userDetails": "John Doe" }';
-  }
-}
 
 module.exports = async function (context, req) {
   const user = getUser(req);
