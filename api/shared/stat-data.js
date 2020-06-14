@@ -32,28 +32,20 @@ const data = {
 };
 
 async function getStats() {
-  // return "test";
-  // try {
-
   const koedosDao = new KoedosDao(config.databaseId, config.statsContainerId);
-
+  const todayMin20 = new Date();
+  todayMin20.setDate(todayMin20.getDate() - 20);
   const querySpec = {
-    query: "SELECT * from c"
+    query: `SELECT * from c WHERE c.date > "${todayMin20.toISOString()}" ORDER BY c.date ASC`
   };
-
   const items = await koedosDao.find(querySpec);
 
   // items.forEach(item => {
   //   console.log(`${item.date} - ${item.count}`);
   // });
 
-  return data.stats;
-  // return items;
-  // }
-  // catch (e) {
-  //   return `{ "error": "${e}"}`;
-  // }
-
+  // return data.stats;
+  return items;
 };
 
 module.exports = { getStats };
