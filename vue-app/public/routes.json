@@ -14,7 +14,7 @@
     },
     {
       "route": "/api/stats",
-      "allowedRoles": ["anonymous"]
+      "allowedRoles": ["administrator"]
     },
     {
       "route": "/api/*",
