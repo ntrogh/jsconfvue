@@ -42,7 +42,7 @@ export default {
       <p class="menu-label">Menu</p>
       <ul class="menu-list">
         <router-link to="/home">Home</router-link>
-        <div v-if="userInfo && userInfo.userRoles && 'administrator' in userInfo.userRoles">
+        <div v-if="userInfo && userInfo.userRoles.includes('administrator')">
           <router-link to="/stats">Koedo Stats</router-link>
         </div>
         <div v-if="userInfo">
