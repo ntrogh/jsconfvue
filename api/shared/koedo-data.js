@@ -1,5 +1,4 @@
-const config = require("./cosmosdb-config");
-const CosmosClient = require("@azure/cosmos").CosmosClient;
+const config = require("./config");
 const KoedosDao = require("./koedosDao");
 
 const data = {
@@ -30,57 +29,72 @@ const getRandomInt = () => {
 const getRandomImageUrl = () => {
   const max = images.length;
   const min = 0;
-
   const idx = Math.floor(Math.random() * Math.floor(max) + min);
 
   return images[idx];
 };
 
+const getDao = () => {
+  return new KoedosDao(config.cosmosdb_databaseId, config.cosmosdb_koedosContainerId);
+}
+
 async function addKoedo(koedo) {
-  // koedo.id = getRandomInt();
+  // select a random gif for the newly created item
   koedo.imageurl = getRandomImageUrl();
   koedo.date = new Date();
 
-  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
-  const newKoedo = await koedosDao.addItem(koedo);
-
-  // data.koedos.push(koedo);
-  return newKoedo;
+  if (config.no_database) {
+    koedo.id = getRandomInt();
+    data.koedos.push(koedo);
+    return koedo;
+  } else {
+    const koedosDao = getDao();
+    const newKoedo = await koedosDao.addItem(koedo);
+    return newKoedo;
+  }
 };
 
 async function updateKoedo(koedo) {
-  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
-  await koedosDao.updateItem(koedo, config.koedosPartitionKey);
+  if (config.no_database) {
+    const index = data.koedos.findIndex((v) => v.id === koedo.id);
+    console.log(koedo);
+    data.koedos.splice(index, 1, koedo);
+  } else {
+    const koedosDao = getDao();
+    await koedosDao.updateItem(koedo, config.cosmosdb_koedosPartitionKey);
+  }
 
-  // const index = data.koedos.findIndex((v) => v.id === koedo.id);
-  // console.log(koedo);
-  // data.koedos.splice(index, 1, koedo);
   return koedo;
 };
 
 async function deleteKoedo(id) {
-  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
-  await koedosDao.deleteItem(id, config.koedosPartitionKey);
+  if (config.no_database) {
+    data.koedos = data.koedos.filter((v) => v.id !== value);
+    console.log(data.koedos.length);
+  } else {
+    const koedosDao = getDao();
+    await koedosDao.deleteItem(id, config.cosmosdb_koedosPartitionKey);
+  }
 
-  // data.koedos = data.koedos.filter((v) => v.id !== value);
-  // console.log(data.koedos.length);
   return true;
 };
 
+
 async function getKoedos(userId) {
-  const koedosDao = new KoedosDao(config.databaseId, config.koedosContainerId);
+  if (config.no_database) {
+    console.log('using static data');
+    return data.koedos;
+  } else {
+    console.log('using DB data');
+    const koedosDao = getDao();
 
-  const todayMin20 = new Date();
-  todayMin20.setDate(todayMin20.getDate() - 20);
-  const querySpec = {
-    query: `SELECT * from c WHERE c.date > "${todayMin20.toISOString()}" AND c["from"] = "${userId}" ORDER BY c.date ASC`
-    // query: `SELECT * from c`
-  };
-  console.log(querySpec.query);
-  const items = await koedosDao.find(querySpec);
+    const querySpec = {
+      query: `SELECT * from c WHERE c["from"] = "${userId}" ORDER BY c.date ASC`
+    };
+    const items = await koedosDao.find(querySpec);
 
-  return items;
-  // return data.koedos;
+    return items;
+  }
 };
 
 module.exports = { addKoedo, updateKoedo: updateKoedo, deleteKoedo: deleteKoedo, getKoedos: getKoedos };

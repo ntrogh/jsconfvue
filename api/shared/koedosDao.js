@@ -1,5 +1,5 @@
 // @ts-check
-const config = require("./cosmosdb-config")
+const config = require("./config")
 const CosmosClient = require('@azure/cosmos').CosmosClient
 const debug = require('debug')('todo:taskDao')
 
@@ -10,7 +10,7 @@ class KoedosDao {
     * @param {string} containerId
      */
     constructor(databaseId, containerId) {
-        const { endpoint, key } = config;
+        const { cosmosdb_endpoint: endpoint, cosmosdb_key: key } = config;
         this.client = new CosmosClient({ endpoint, key });
         this.database = this.client.database(databaseId);
         this.container = this.database.container(containerId);

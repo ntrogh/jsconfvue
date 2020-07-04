@@ -1,4 +1,4 @@
-const config = require("./cosmosdb-config");
+const config = require("./config");
 const CosmosClient = require("@azure/cosmos").CosmosClient;
 const KoedosDao = require("./koedosDao");
 
@@ -32,20 +32,7 @@ const data = {
 };
 
 async function getStats() {
-  const koedosDao = new KoedosDao(config.databaseId, config.statsContainerId);
-  const todayMin20 = new Date();
-  todayMin20.setDate(todayMin20.getDate() - 20);
-  const querySpec = {
-    query: `SELECT * from c WHERE c.date > "${todayMin20.toISOString()}" ORDER BY c.date ASC`
-  };
-  const items = await koedosDao.find(querySpec);
-
-  // items.forEach(item => {
-  //   console.log(`${item.date} - ${item.count}`);
-  // });
-
-  // return data.stats;
-  return items;
+  return data.stats;
 };
 
 module.exports = { getStats };
