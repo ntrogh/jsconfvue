@@ -17,7 +17,7 @@
           </a>
         </button>-->
         <button class="button" aria-label="Code on GitHub">
-          <a href="https://github.com/ntrogh/shopathome" target="_blank" rel="noopener noreferrer">
+          <a href="https://github.com/ntrogh/jsconfvue" target="_blank" rel="noopener noreferrer">
             <i class="fab fa-github"></i>
             Code in GitHub
           </a>
