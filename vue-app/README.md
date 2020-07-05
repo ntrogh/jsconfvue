@@ -1,31 +1,24 @@
-# Static Web App
+# Koedos Static Web App
 
-This project was created to help represent a fundamental app written with Vue. The Shop at Home theme is used throughout the app. View it live at <https://www.shopathome.dev>.
+This project was used as a demo at [JSConf.BE 2020](https://jsconf.be) to demonstrate how to deploy a Vue app on Azure Static Web Apps. You can view the app live at <https://www.koedos.xyz/>.
+It is based on [John Papa's ShopAtHome template](https://github.com/johnpapa/shopathome).
+
 
 ## Learn how
 
-Learn how to [Publish an Angular, React, Svelte, or Vue JavaScript app and API with Azure Static Web Apps](https://docs.microsoft.com/en-us/learn/modules/publish-app-service-static-web-app-api/?WT.mc_id=shopathome-github-jopapa)
+Learn how to [Publish an Angular, React, Svelte, or Vue JavaScript app and API with Azure Static Web Apps](https://docs.microsoft.com/en-us/learn/modules/publish-app-service-static-web-app-api/?ocid=aid3015985_ThankYou_DevComm&eventId=JSConf.BE_1KFY26YyJEBg)
 
 ## Getting Started
 
-1. Create a repository from this template repository <https://github.com/johnpapa/shopathome/generate>
+1. Clone this repository
 
-1. Enter the name of your new repository as _my-static-web-app_
-
-1. Clone your new repository
-
-   ```bash
-   git clone https://github.com/your-github-organization/my-static-web-app
-   cd my-static-web-app/vue-app
-   ```
-
-1. Install the npm packages
+2. Install the npm packages
 
    ```bash
    npm install
    ```
 
-1. Run the app
+3. Run the app
 
    ```bash
    npm run serve
@@ -35,10 +28,10 @@ Learn how to [Publish an Angular, React, Svelte, or Vue JavaScript app and API w
 
 ### Azure Static Web Apps
 
-- Learn how to [Publish an Angular, React, Svelte, or Vue JavaScript app and API with Azure Static Web Apps](https://docs.microsoft.com/learn/modules/publish-app-service-static-web-app-api?wt.mc_id=shopathome-github-jopapa)
-- [API support in Azure Static Web Apps](https://docs.microsoft.com/azure/static-web-apps/apis?wt.mc_id=shopathome-github-jopapa)
-- [Add an API to Azure Static Web Apps](https://docs.microsoft.com/azure/static-web-apps/add-api?wt.mc_id=shopathome-github-jopapa)
-- [Authentication and authorization](https://docs.microsoft.com/azure/static-web-apps/authentication-authorization?wt.mc_id=shopathome-github-jopapa)
-- [Routes](https://docs.microsoft.com/azure/static-web-apps/routes?wt.mc_id=shopathome-github-jopapa)
-- [Review pre-production environments](https://docs.microsoft.com/azure/static-web-apps/review-publish-pull-requests?wt.mc_id=shopathome-github-jopapa)
-- [Azure Free Trial](https://azure.microsoft.com/free/?wt.mc_id=shopathome-github-jopapa)
+- Learn how to [Publish an Angular, React, Svelte, or Vue JavaScript app and API with Azure Static Web Apps](https://docs.microsoft.com/learn/modules/publish-app-service-static-web-app-api?ocid=aid3015985_ThankYou_DevComm&eventId=JSConf.BE_1KFY26YyJEBg)
+- [API support in Azure Static Web Apps](https://docs.microsoft.com/azure/static-web-apps/apis?ocid=aid3015985_ThankYou_DevComm&eventId=JSConf.BE_1KFY26YyJEBg)
+- [Add an API to Azure Static Web Apps](https://docs.microsoft.com/azure/static-web-apps/add-api?ocid=aid3015985_ThankYou_DevComm&eventId=JSConf.BE_1KFY26YyJEBg)
+- [Authentication and authorization](https://docs.microsoft.com/azure/static-web-apps/authentication-authorization?ocid=aid3015985_ThankYou_DevComm&eventId=JSConf.BE_1KFY26YyJEBg)
+- [Routes](https://docs.microsoft.com/azure/static-web-apps/routes?ocid=aid3015985_ThankYou_DevComm&eventId=JSConf.BE_1KFY26YyJEBg)
+- [Review pre-production environments](https://docs.microsoft.com/azure/static-web-apps/review-publish-pull-requests?ocid=aid3015985_ThankYou_DevComm&eventId=JSConf.BE_1KFY26YyJEBg)
+- [Azure Free Trial](https://azure.microsoft.com/free/?ocid=aid3015985_ThankYou_DevComm&eventId=JSConf.BE_1KFY26YyJEBg)
